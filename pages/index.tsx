@@ -1,5 +1,4 @@
-import { gql } from '@apollo/client'
-import type { GetStaticProps, NextPage } from 'next'
+import type { GetStaticProps } from 'next'
 import { FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import FoundProducts from '../components/FoundProducts'
@@ -8,13 +7,33 @@ import SearchSection from '../components/SearchSection'
 import { client } from '../services'
 import { getAllProducts, searchForProducts } from '../services/endpoints'
 
+export type Product = {
+  id: string,
+  name: string,
+  slug: string,
+  price: number,
+  image: any[],
+  category: Record<string, string>,
+  description?: string
+}
+
+export type  NodeInfoProduct = {
+  node: Product
+}
+
+type HomePageProps = {
+  productsList: NodeInfoProduct[]
+}
+
 const categorys = ["PC", "Periféricos", "Cadeiras"]
-const Home: NextPage = ({productsList}: any) => {
+const Home = ({productsList}: HomePageProps) => {
   const [foundProducts, setFoundProducts] = useState<any[]>([])
   const productsCategoryPC = productsList.filter((product: any) => product.node.category.name === categorys[0])
   const productsCategoryPeripherals = productsList.filter((product: any) => product.node.category.name === categorys[1])
   const productsCategoryChairs = productsList.filter((product: any) => product.node.category.name === categorys[2])
   
+  console.log(productsCategoryChairs)
+
   const handleSearchProduct = async (term: string, e: FormEvent) => {
     e.preventDefault()
     try {
@@ -79,6 +98,7 @@ export const getStaticProps: GetStaticProps = async () => {
     query: getAllProducts()
   })
 
+  console.log(data.productsConnection.edges)
   return {
     props: {
       productsList: data.productsConnection.edges

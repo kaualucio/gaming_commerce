@@ -1,26 +1,28 @@
-import Image from 'next/image'
+import { GetStaticPaths, GetStaticProps } from 'next';
 import React, { useEffect, useState } from 'react'
 import{ AiFillStar, AiOutlineStar } from 'react-icons/ai'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import ProductImage from '../../components/ProductImage';
-import { GetStaticPaths, GetStaticProps } from 'next';
 import { client } from '../../services';
-import { gql, useQuery } from '@apollo/client';
 import { useCartContext } from '../../context/CartContext';
 import ListProducts from '../../components/ListProducts';
 import { getAllProducts, getProductsByCategory, getProductSingle } from '../../services/endpoints';
+import type { NodeInfoProduct } from '../'
 
+type ProductPageProps = {
+  product: NodeInfoProduct
+}
 
-const Product = ({product}: any) => {
+const Product = ({product}: ProductPageProps) => {
   const [releatedProducts, setReleatedProducts] = useState<any[]>([])
   const {addProductInCart, qty, incQuantity, decQuantity }= useCartContext()
-
+  console.log(product)
   useEffect(() => {
     client.query({
       variables: {
-        category: product[0].node.category.name
+        category: product.node.category.name
       },
       query: getProductsByCategory()
     }).then((data) => {
@@ -46,14 +48,14 @@ const Product = ({product}: any) => {
         <div className="col-span-1 p-0">
           <Slider {...settings} className="rounded-lg">
             {
-              product[0]?.node?.image.map((image: any, index: number) => (
+              product?.node?.image.map((image: any) => (
                 <ProductImage key={image.id} urlImage={image.url} altImage={image.id} />
               ))
             }
           </Slider>
           </div>
           <div className="col-span-2 flex flex-col gap-2">
-            <h2 className="text-3xl text-indigo-500 font-bold">{product[0]?.node?.name}</h2>
+            <h2 className="text-3xl text-indigo-500 font-bold">{product?.node?.name}</h2>
             <div className="flex items-center gap-1">
               <AiFillStar color="#df2030"/>
               <AiFillStar color="#df2030"/>
@@ -63,10 +65,10 @@ const Product = ({product}: any) => {
             </div>
             <div className="my-3">
               <h4 className="font-bold text-indigo-500">Details</h4>
-              <p className="text-white">{product[0]?.node?.description}</p>
+              <p className="text-white">{product?.node?.description}</p>
             </div>
             <div className="">
-              <h3 className="mb-5 text-indigo-500 font-bold text-2xl">R${product[0]?.node?.price}</h3>
+              <h3 className="mb-5 text-indigo-500 font-bold text-2xl">R${product?.node?.price}</h3>
               <div className="flex items-center gap-2 text-white my-5">
                 <h4 className="font-bold text-indigo-500">Quantidade: </h4>
                 <div className="flex items-center text-center">
@@ -84,7 +86,7 @@ const Product = ({product}: any) => {
               <div className="flex items-center gap-5">
                 <button 
                   className="p-3 bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-lg font-medium text-lg"
-                  onClick={() => addProductInCart(product[0].node, qty)}
+                  onClick={() => addProductInCart(product.node, qty)}
                   >Adicionar ao Carrinho</button>
                 <button 
                   className="p-3 bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-lg font-medium text-lg"
@@ -118,7 +120,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
-      product: edges
+      product: {...edges}
     }
   }
 

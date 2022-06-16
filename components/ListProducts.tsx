@@ -3,8 +3,14 @@ import ProductSingle from './ProductSingle'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import type { NodeInfoProduct } from '../pages'
 
-const ListProducts = ({products}: any) => {
+
+type ListProductsProps = {
+  products: NodeInfoProduct[]
+}
+
+const ListProducts = ({products}: ListProductsProps) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -46,7 +52,7 @@ const ListProducts = ({products}: any) => {
     <div className="">
       <Slider {...settings}>
       {
-        products.map((product: any) => (
+        products.map((product) => (
           <ProductSingle key={product.node.id} product={product}/>
         ))
       }

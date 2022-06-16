@@ -1,8 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import type { NodeInfoProduct } from '../pages'
 
-const ProductSingle = ({product}: any) => {
+type ProductSingleProps = {
+  product: NodeInfoProduct
+}
+
+const ProductSingle = ({product}: ProductSingleProps) => {
   return (
     <Link href={`/product/${product.node.slug}`}>
     <div className="mx-2 p-3 text-center cursor-pointer rounded-lg bg-[#1f1f21]">
