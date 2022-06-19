@@ -7,16 +7,12 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import getStripe from '../services/stripe'
 
-type CartProps = {
-  setOpenCart: Dispatch<SetStateAction<boolean>>,
-}
-
-const Cart = ({setOpenCart}: CartProps) => {
-  const { cartItems, totalQuantities, totalPrice } = useCartContext()
+const Cart = () => {
+  const { cartItems, totalQuantities, totalPrice, setOpenCart } = useCartContext()
 
   const handleCheckout = async () => {
     const stripe = await getStripe();
-    const result = await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/stripe`, {
+    const result = await axios.post(`/api/stripe`, {
       cartItems
     }, {
       headers: {

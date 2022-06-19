@@ -32,8 +32,6 @@ const Home = ({productsList}: HomePageProps) => {
   const productsCategoryPeripherals = productsList.filter((product: any) => product.node.category.name === categorys[1])
   const productsCategoryChairs = productsList.filter((product: any) => product.node.category.name === categorys[2])
   
-  console.log(productsCategoryChairs)
-
   const handleSearchProduct = async (term: string, e: FormEvent) => {
     e.preventDefault()
     try {

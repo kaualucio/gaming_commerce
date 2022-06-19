@@ -11,6 +11,7 @@ export const CartContextProvider = ({children}: CartContextProps) => {
   const [totalPrice, setTotalPrice] = useState(0)
   const [totalQuantities, setTotalQuantities] = useState(0)
   const [qty, setQty] = useState(1)
+  const [openCart, setOpenCart] = useState(false)
 
   const addProductInCart = (product: any, quantity: number) => {
     const productExistInCart = cartItems.find(item => item.id === product.id)
@@ -80,7 +81,9 @@ export const CartContextProvider = ({children}: CartContextProps) => {
       incQuantity,
       decQuantity,
       totalQuantities,
-      toggleCartItemsQuantity
+      toggleCartItemsQuantity,
+      setOpenCart,
+      openCart
       }}>
       {children}
     </CartContext.Provider>

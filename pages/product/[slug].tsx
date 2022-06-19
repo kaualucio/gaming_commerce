@@ -16,9 +16,9 @@ type ProductPageProps = {
 }
 
 const Product = ({product}: ProductPageProps) => {
+
   const [releatedProducts, setReleatedProducts] = useState<any[]>([])
-  const {addProductInCart, qty, incQuantity, decQuantity }= useCartContext()
-  console.log(product)
+  const {addProductInCart, qty, incQuantity, decQuantity, setOpenCart }= useCartContext()
   useEffect(() => {
     client.query({
       variables: {
@@ -29,6 +29,12 @@ const Product = ({product}: ProductPageProps) => {
       setReleatedProducts(data.data.productsConnection.edges)
     })
   }, [product])
+
+  const buyNow = () => {
+    addProductInCart(product.node, qty)
+    
+    setOpenCart(true)
+  }
 
   const settings = {
     dots: false,
@@ -89,8 +95,9 @@ const Product = ({product}: ProductPageProps) => {
                   onClick={() => addProductInCart(product.node, qty)}
                   >Adicionar ao Carrinho</button>
                 <button 
+                  onClick={() => buyNow()}
                   className="p-3 bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-lg font-medium text-lg"
-                >Comprar</button>
+                >Comprar Agora</button>
               </div>
             </div>
           </div>
@@ -120,7 +127,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
-      product: {...edges}
+      product: {...edges[0]}
     }
   }
 

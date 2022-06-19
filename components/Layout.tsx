@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import React, { ReactNode, useState } from 'react'
+import { useCartContext } from '../context/CartContext'
 import Cart from './Cart'
 import Footer from './Footer'
 import Header from './Header'
@@ -9,15 +10,16 @@ type LayoutProps = {
 }
 
 const Layout = ({children}: LayoutProps) => {
-  const [openCart, setOpenCart] = useState(false)
+  const { openCart } = useCartContext()
+
   return (
     <div className={`w-full h-max bg-[#161819] relative z-10`}>
       <Head>
         <title>initGamingShop - Commerce</title>
       </Head>
-      <Header setOpenCart={setOpenCart} />
+      <Header />
       <main className="h-full">
-        {openCart && <Cart setOpenCart={setOpenCart} />}
+        {openCart && <Cart />}
         {children}
       </main>
       <Footer />
