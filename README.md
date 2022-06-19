@@ -5,6 +5,6 @@
 
 
 ## Teste pagamento
-<p>Caso queira testar o pagamento do Stripe use sequências dos números 4 e 2 nos dados dos cartões, como no seguinte exemplo:</p>
+<p>Caso queira testar o pagamento do Stripe use sequências dos números 4 e 2 nos dados dos cartões para simular um pagamento, como no seguinte exemplo:</p>
 
 ![Screenshot (1)](https://user-images.githubusercontent.com/60020363/174484864-8817d45b-b02b-4942-87da-250cc675abf4.png)
