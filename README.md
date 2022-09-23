@@ -1,7 +1,7 @@
 ## [Ecommerce](https://gaming-commerce.vercel.app) 
 <p>Um e-commerce de PC's Gamers e outros produtos relacionados como: periféricos e cadeiras gamer</p>
 
-![Screenshot (3)](https://user-images.githubusercontent.com/60020363/174484998-5d0d2778-7235-42fe-9e36-12a7a732d339.png)
+![screen3](https://user-images.githubusercontent.com/60020363/192065822-5720bff8-d166-49ef-a833-a836ec8607d8.PNG)
 
 
 ## Teste pagamento
